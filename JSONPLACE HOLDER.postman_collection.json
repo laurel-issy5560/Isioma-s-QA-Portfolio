@@ -1,0 +1,518 @@
+{
+  "info": {
+    "_postman_id": "ca260626-9b24-4dad-9cf8-988c2240dbc4",
+    "name": "JSONPLACE HOLDER",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46700011",
+    "_collection_link": "https://go.postman.co/collection/46700011-ca260626-9b24-4dad-9cf8-988c2240dbc4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Getting a Resource",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "pm.test(\"status code is 200\", function (){\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"response time is less than 2000m/s\", function(){\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "pm.test(\"response is an object and not empty\", function (){\r",
+              "    pm.expect(response).to.be.an(\"object\");\r",
+              "    pm.expect(response).not.to.be.empty;\r",
+              "});\r",
+              "pm.test(\"response contains title and body\", function (){\r",
+              "    pm.expect(response).to.have.property(\"title\");\r",
+              "    pm.expect(response).to.have.property(\"body\");\r",
+              "});\r",
+              "pm.test(\"title to include sunt aut facere\", function (){\r",
+              "    pm.expect(response.title).to.include(\"sunt aut facere\");\r",
+              "});\r",
+              "pm.test(\"userId and id are numbers\", function (){\r",
+              "    pm.expect(response.userId).to.be.a(\"number\");\r",
+              "     pm.expect(response.id).to.be.a(\"number\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{JPH_URL}}/posts/1",
+          "host": [
+            "{{JPH_URL}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listing all Resource",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "pm.test(\"status code is 200\", function (){\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"response time is less than 2000m/s\", function(){\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "pm.test(\"response is an array and not empty\", function (){\r",
+              "    pm.expect(response).to.be.an(\"array\");\r",
+              "    pm.expect(response).not.to.be.empty;\r",
+              "});\r",
+              "// first Array\r",
+              "pm.test(\"object in the first array contains userId, id, title and body\", function (){\r",
+              "\tpm.expect(response[0]).to.have.property(\"userId\");\r",
+              "\tpm.expect(response[0]).to.have.property(\"id\");\r",
+              "\tpm.expect(response[0]).to.have.property(\"title\");\r",
+              "\tpm.expect(response[0]).to.have.property(\"body\");\r",
+              "});\r",
+              "pm.test(\"title to include sunt aut facere\", function (){\r",
+              "    pm.expect(response[0].title).to.include(\"sunt aut facere\");\r",
+              "});\r",
+              "//second Array\r",
+              "pm.test(\"userLd is 1 and id is 2\", function (){\r",
+              "\tpm.expect(response[1].userId).to.eql(1);\r",
+              "\tpm.expect(response[1].id).to.eql(2);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"All object should have a title\", function () {\r",
+              "    response.forEach(object => {\r",
+              "        pm.expect(object).to.have.property(\"title\");\r",
+              "        pm.expect(object.title).to.be.a(\"string\").and.not.empty;\r",
+              "    });\r",
+              "});\r",
+              "pm.test(\"All object should have a body\", function () {\r",
+              "    response.forEach(object => {\r",
+              "        pm.expect(object).to.have.property(\"body\");\r",
+              "        pm.expect(object.body).to.be.a(\"string\").and.not.empty;\r",
+              "    });\r",
+              "});\r",
+              "pm.test(\"All object should have userId and id\", function () {\r",
+              "    response.forEach(object => {\r",
+              "        pm.expect(object).to.have.property(\"userId\");\r",
+              "        pm.expect(object.userId).to.be.a(\"number\");\r",
+              "\t\t\t\t pm.expect(object).to.have.property(\"id\");\r",
+              "        pm.expect(object.id).to.be.a(\"number\");\r",
+              "    });\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{JPH_URL}}/posts",
+          "host": [
+            "{{JPH_URL}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Creating a Resource",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "pm.test(\"Response time is less than 2000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "pm.test(\"response is an aobject and not empty\",function (){\r",
+              "    pm.expect(response).to.be.an (\"object\").and.not.be.empty;\r",
+              "});\r",
+              "pm.test(\"tittle, body, userId and id to exist\", function(){\r",
+              "\tpm.expect(response.title).to.exist;\r",
+              "\tpm.expect(response.body).to.exist;\r",
+              "\tpm.expect(response.userId).to.exist;\r",
+              "\tpm.expect(response.id).to.exist;\r",
+              "});\r",
+              "pm.test(\"title and body are strings\", function(){\r",
+              "\tpm.expect(response.title).to.be.a(\"string\");\r",
+              "\tpm.expect(response.body).to.be.a(\"string\");\r",
+              "});\r",
+              "pm.test(\"userId and id are numbers\", function(){\r",
+              "\tpm.expect(response.userId).to.be.a(\"number\");\r",
+              "\tpm.expect(response.id).to.be.a(\"number\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"foo\",\r\n    \"body\": \"bar\",\r\n    \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{JPH_URL}}/posts",
+          "host": [
+            "{{JPH_URL}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Updating a Resource",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"Response time is less than 2000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "pm.test(\"response is an aobject and not empty\",function (){\r",
+              "    pm.expect(response).to.be.an (\"object\").and.not.be.empty;\r",
+              "});\r",
+              "pm.test(\"tittle, body, userId and id to exist\", function(){\r",
+              "\tpm.expect(response.title).to.exist;\r",
+              "\tpm.expect(response.body).to.exist;\r",
+              "\tpm.expect(response.userId).to.exist;\r",
+              "\tpm.expect(response.id).to.exist;\r",
+              "});\r",
+              "pm.test(\"title and body are strings\", function(){\r",
+              "\tpm.expect(response.title).to.be.a(\"string\");\r",
+              "\tpm.expect(response.body).to.be.a(\"string\");\r",
+              "});\r",
+              "pm.test(\"userId and id are numbers\", function(){\r",
+              "\tpm.expect(response.userId).to.be.a(\"number\");\r",
+              "\tpm.expect(response.id).to.be.a(\"number\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n     \"id\": 1,\r\n    \"title\": \"foo\",\r\n    \"body\": \"bar\",\r\n    \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{JPH_URL}}/posts/1",
+          "host": [
+            "{{JPH_URL}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Patching a Resource",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"Response time is less than 2000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "pm.test(\"response is an object and not empty\", function(){\r",
+              "    pm.expect(response).to.be.an(\"object\")\r",
+              "    pm.expect(response).not.be.empty;\r",
+              "});\r",
+              "pm.test(\"title is foo and id is 1\",function(){\r",
+              "    pm.expect(response.title).to.eql(\"foo\");\r",
+              "    pm.expect(response.id).to.eql(1);\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n     \"title\": \"foo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{JPH_URL}}/posts/1",
+          "host": [
+            "{{JPH_URL}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deleting a Resource",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "pm.test(\"status code is 200\", function (){\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"response time is less than 2000m/s\", function(){\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "pm.test(\"response is an object and not empty\", function (){\r",
+              "    pm.expect(response).to.be.an(\"object\");\r",
+              "    pm.expect(response).not.to.be.empty;\r",
+              "});\r",
+              "pm.test(\"response contains title and body\", function (){\r",
+              "    pm.expect(response).to.have.property(\"title\");\r",
+              "    pm.expect(response).to.have.property(\"body\");\r",
+              "});\r",
+              "pm.test(\"title to include sunt aut facere\", function (){\r",
+              "    pm.expect(response.title).to.include(\"sunt aut facere\");\r",
+              "});\r",
+              "pm.test(\"userId and id are numbers\", function (){\r",
+              "    pm.expect(response.userId).to.be.a(\"number\");\r",
+              "     pm.expect(response.id).to.be.a(\"number\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n     \"title\": \"foo\"\r\n}"
+        },
+        "url": {
+          "raw": "{{JPH_URL}}/posts/1",
+          "host": [
+            "{{JPH_URL}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filtering a resource",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "pm.test(\"status code is 200\", function (){\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"response time is less than 2000m/s\", function(){\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "pm.test(\"response is an array and not empty\", function (){\r",
+              "    pm.expect(response).to.be.an(\"array\");\r",
+              "    pm.expect(response).not.to.be.empty;\r",
+              "});\r",
+              "pm.test(\"response contains title and body\", function (){\r",
+              "    pm.expect(response[0]).to.have.property(\"title\");\r",
+              "    pm.expect(response[0]).to.have.property(\"body\");\r",
+              "});\r",
+              "pm.test(\"title to include sunt aut facere\", function (){\r",
+              "    pm.expect(response[0].title).to.include(\"sunt aut facere\");\r",
+              "});\r",
+              "pm.test(\"All object should have a title\", function () {\r",
+              "    response.forEach(object => {\r",
+              "        pm.expect(object).to.have.property(\"title\");\r",
+              "        pm.expect(object.title).to.be.a(\"string\").and.not.empty;\r",
+              "    });\r",
+              "});\r",
+              "pm.test(\"All object should have a body\", function () {\r",
+              "    response.forEach(object => {\r",
+              "        pm.expect(object).to.have.property(\"body\");\r",
+              "        pm.expect(object.body).to.be.a(\"string\").and.not.empty;\r",
+              "    });\r",
+              "});\r",
+              "pm.test(\"All object should have userId and id\", function () {\r",
+              "    response.forEach(object => {\r",
+              "        pm.expect(object).to.have.property(\"userId\");\r",
+              "        pm.expect(object.userId).to.be.a(\"number\");\r",
+              "\t\t\t\t pm.expect(object).to.have.property(\"id\");\r",
+              "        pm.expect(object.id).to.be.a(\"number\");\r",
+              "    });\r",
+              "});\r",
+              "pm.test(\"All object userId and id are numbers\", function (){\r",
+              "\tresponse.forEach(object => {\r",
+              "    pm.expect(object.userId).to.be.a(\"number\");\r",
+              "     pm.expect(object.id).to.be.a(\"number\");\r",
+              "});\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{JPH_URL}}/posts?userId=1",
+          "host": [
+            "{{JPH_URL}}"
+          ],
+          "path": [
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listing Nested Resource",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"Response time is less than 2000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "pm.test(\"response is an array\",function(){\r",
+              "    pm.expect(response).be.an(\"array\");\r",
+              "});\r",
+              "pm.test(\"All objects has a postId and id\", function (){\r",
+              "    response.forEach(object => {\r",
+              "        pm.expect(object).to.have.property(\"postId\");\r",
+              "        pm.expect(object.postId).to.be.a(\"number\");\r",
+              "        pm.expect(object).to.have.property(\"id\");\r",
+              "        pm.expect(object.id).to.be.a(\"number\");\r",
+              "});\r",
+              "});\r",
+              "pm.test(\"All object should include name, email and body\", function (){\r",
+              "    response.forEach(object => {\r",
+              "        pm.expect(object).to.have.property(\"name\");\r",
+              "        pm.expect(object.name).to.be.a(\"string\");\r",
+              "        pm.expect(object).to.have.property(\"email\");\r",
+              "        pm.expect(object.email).to.be.a(\"string\");\r",
+              "        pm.expect(object).to.have.property(\"body\");\r",
+              "        pm.expect(object.body).to.be.a(\"string\");\r",
+              "        });\r",
+              "});\r",
+              "pm.test(\"second array email is Nikita@garfield.biz\", function (){\r",
+              "    pm.expect(response[2].email).to.eql(\"Nikita@garfield.biz\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{JPH_URL}}/posts/1/comments",
+          "host": [
+            "{{JPH_URL}}"
+          ],
+          "path": [
+            "posts",
+            "1",
+            "comments"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
